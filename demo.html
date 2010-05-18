@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>dynamicaudio demo</title>
+    <script type="text/javascript" src="build/dynamicaudio-min.js"></script>
+</head>
+
+<body>
+    <input type="text" size="4" id="freq" value="440"><label for="hz">Hz</label>
+    <button onclick="generateWaveform()">set</button>
+    <button onclick="start()">play</button>
+    <button onclick="stop()">stop</button>
+    
+    <script type="text/javascript" charset="utf-8">
+        
+        var sampledata = [];
+        var freq = 440;
+        var interval = null;
+        var dynamicaudio = new DynamicAudio({'swf': 'build/dynamicaudio.swf'});
+        
+        function start() {
+            interval = setInterval(function() {
+                var n = Math.ceil(freq / 100) * 2;
+                for (var i=0; i < n; i++) {
+                    dynamicaudio.write(sampledata);
+                }
+            }, 10);
+        }
+
+        function stop() {
+            if (interval != null) {
+                clearInterval(interval);
+                interval = null;
+            }
+        }
+
+        (function generateWaveform() {
+            freq = parseFloat(document.getElementById("freq").value);
+            // we're playing at 44.1kHz, so figure out how many samples
+            // will give us one full period
+            var samples = 44100 / freq;
+            sampledata = Array(Math.round(samples));
+            for (var i=0; i < sampledata.length; i++) {
+                sampledata[i] = Math.sin(2*Math.PI * (i / sampledata.length));
+            }
+        })();
+        
+    </script>
+</body>
