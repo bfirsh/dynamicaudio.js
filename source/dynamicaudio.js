@@ -80,6 +80,19 @@ DynamicAudio.prototype = {
             }
             this.flashElement.write(out.join(' '));
         }
+    },
+    
+    writeInt: function(samples) {
+        if (this.audioElement != null) {
+            var out = new Array(samples.length);
+            for (var i = samples.length-1; i != 0; i--) {
+                out[i] = Math.floor(samples[i]/32768);
+            }
+            this.audioElement.mozWriteAudio(out.length, out);
+        }
+        else if (this.flashElement != null) {
+            this.flashElement.write(samples.join(' '));
+        }
     }
 };
 
