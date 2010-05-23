@@ -6,17 +6,11 @@ package {
     
     public class dynamicaudio extends Sprite {
         public var bufferSize:Number = 2048; // In samples
-        public var sound:Sound;
+        public var sound:Sound = null;
         public var buffer:Array = [];
         
         public function dynamicaudio() {
             ExternalInterface.addCallback('write',  write);
-            this.sound = new Sound(); 
-            this.sound.addEventListener(
-                SampleDataEvent.SAMPLE_DATA,
-                soundGenerator
-            );
-            this.sound.play();
         }
         
         // Called from JavaScript to add samples to the buffer
@@ -24,6 +18,15 @@ package {
         // array. Flash's stupid ExternalInterface passes every sample as XML, 
         // which is incredibly expensive to encode/decode
         public function write(s:String):void {
+            if (!this.sound) {
+                this.sound = new Sound(); 
+                this.sound.addEventListener(
+                    SampleDataEvent.SAMPLE_DATA,
+                    soundGenerator
+                );
+                this.sound.play();
+            }
+            
             var multiplier:Number = 1/32768;
             for each (var sample:String in s.split(" ")) {
                 this.buffer.push(Number(sample)*multiplier);
