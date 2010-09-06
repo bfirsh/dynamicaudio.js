@@ -32,7 +32,7 @@ DynamicAudio.prototype = {
         if (typeof Audio != 'undefined') {
             self.audioElement = new Audio();
             if (self.audioElement.mozSetup) {
-                self.audioElement.mozSetup(2, 44100, 1);
+                self.audioElement.mozSetup(2, 44100);
                 return;
             }
         }
@@ -71,7 +71,7 @@ DynamicAudio.prototype = {
     
     write: function(samples) {
         if (this.audioElement != null) {
-            this.audioElement.mozWriteAudio(samples.length, samples);
+            this.audioElement.mozWriteAudio(samples);
         }
         else if (this.flashElement != null) {
             var out = new Array(samples.length);
@@ -88,7 +88,7 @@ DynamicAudio.prototype = {
             for (var i = samples.length-1; i != 0; i--) {
                 out[i] = Math.floor(samples[i]/32768);
             }
-            this.audioElement.mozWriteAudio(out.length, out);
+            this.audioElement.mozWriteAudio(out);
         }
         else if (this.flashElement != null) {
             this.flashElement.write(samples.join(' '));
