@@ -76,7 +76,7 @@ DynamicAudio.prototype = {
         else if (this.flashElement != null) {
             var out = new Array(samples.length);
             for (var i = samples.length-1; i != 0; i--) {
-                out[i] = Math.floor(samples[i]*32768);
+                out[i] = Math.floor(samples[i] * 32768);
             }
             this.flashElement.write(out.join(' '));
         }
@@ -86,7 +86,7 @@ DynamicAudio.prototype = {
         if (this.audioElement != null) {
             var out = new Array(samples.length);
             for (var i = samples.length-1; i != 0; i--) {
-                out[i] = Math.floor(samples[i]/32768);
+                out[i] = samples[i] / 32768;
             }
             this.audioElement.mozWriteAudio(out);
         }
