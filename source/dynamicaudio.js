@@ -10,6 +10,7 @@ function DynamicAudio(args) {
     }
 }
 
+DynamicAudio.VERSION = "<%= version %>";
 DynamicAudio.nextId = 1;
 
 DynamicAudio.prototype = {
