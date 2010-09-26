@@ -1,7 +1,7 @@
 
 function DynamicAudio(args) {
     if (this instanceof arguments.callee) {
-        if (typeof this.init == "function") {
+        if (typeof this.init === "function") {
             this.init.apply(this, (args && args.callee) ? args : arguments);
         }
     }
@@ -25,12 +25,12 @@ DynamicAudio.prototype = {
         var self = this;
         self.id = DynamicAudio.nextId++;
         
-        if (opts && typeof opts['swf'] != 'undefined') {
+        if (opts && typeof opts['swf'] !== 'undefined') {
             self.swf = opts['swf'];
         }
 
         // Attempt to create an audio element
-        if (typeof Audio != 'undefined') {
+        if (typeof Audio !== 'undefined') {
             self.audioElement = new Audio();
             if (self.audioElement.mozSetup) {
                 self.audioElement.mozSetup(2, 44100);
@@ -71,12 +71,12 @@ DynamicAudio.prototype = {
     },
     
     write: function(samples) {
-        if (this.audioElement != null) {
+        if (this.audioElement !== null) {
             this.audioElement.mozWriteAudio(samples);
         }
-        else if (this.flashElement != null) {
+        else if (this.flashElement !== null) {
             var out = new Array(samples.length);
-            for (var i = samples.length-1; i != 0; i--) {
+            for (var i = samples.length-1; i !== 0; i--) {
                 out[i] = Math.floor(samples[i] * 32768);
             }
             this.flashElement.write(out.join(' '));
@@ -84,14 +84,14 @@ DynamicAudio.prototype = {
     },
     
     writeInt: function(samples) {
-        if (this.audioElement != null) {
+        if (this.audioElement !== null) {
             var out = new Array(samples.length);
-            for (var i = samples.length-1; i != 0; i--) {
+            for (var i = samples.length-1; i !== 0; i--) {
                 out[i] = samples[i] / 32768;
             }
             this.audioElement.mozWriteAudio(out);
         }
-        else if (this.flashElement != null) {
+        else if (this.flashElement !== null) {
             this.flashElement.write(samples.join(' '));
         }
     }
