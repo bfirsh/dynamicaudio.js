@@ -2,6 +2,7 @@
 source_directory:     source
 build_directory:      build
 layout:               together
+header:               license.js
 builds:
   src:
     packer:           false
