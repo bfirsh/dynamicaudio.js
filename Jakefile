@@ -3,5 +3,5 @@ jake_hook :build_complete do |build|
 end
 
 jake_helper :version do
-  return (`git rev-list HEAD | head -1 | cut -c-20`).strip
+  `git rev-list HEAD | head -1 | cut -c-20`.strip
 end
