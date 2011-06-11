@@ -5,23 +5,10 @@ An interface for writing audio with Firefox's new
 [audio data API](https://wiki.mozilla.org/Audio_Data_API) with a Flash fallback 
 for older browsers.
 
+Built packages can be downloaded from 
+[GitHub](https://github.com/bfirsh/dynamicaudio.js/archives/master).
+
 For a basic example, see ``demo.html``.
-
-
-Build from source
------------------
-
-To build, you will need jake:
-
-    $ sudo gem install jake
-
-You will also need Adobe's 
-[Flex SDK](http://opensource.adobe.com/wiki/display/flexsdk/). This should be 
-placed in a ``flexsdk`` directory in the same directory as ``jake.yml``.
-
-Now run:
-
-    $ jake
 
 
 Usage
@@ -52,5 +39,21 @@ will get buffer underruns.
 This method is the same as ``write()``, but is instead supplied with integer
 samples in the range -32,768 to 32,767. If your samples are already integers,
 this method is more efficient.
+
+
+Build from source
+-----------------
+
+To build, you will need jake:
+
+    $ sudo gem install jake
+
+You will also need Adobe's 
+[Flex SDK](http://opensource.adobe.com/wiki/display/flexsdk/). This should be 
+placed in a ``flexsdk`` directory in the same directory as ``jake.yml``.
+
+Now run:
+
+    $ jake
 
 
