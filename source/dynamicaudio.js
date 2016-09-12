@@ -70,7 +70,7 @@ DynamicAudio.prototype = {
 
     write: function(samples) {
         if (this.audioContext !== null) {
-            this.output(samples);
+            this.webAudioWrite(samples);
         }
         else if (this.flashElement !== null) {
             var out = new Array(samples.length);
@@ -83,7 +83,7 @@ DynamicAudio.prototype = {
 
     writeInt: function(samples) {
         if (this.audioContext !== null) {
-            this.output(samples, this.intToFloatSample);
+            this.webAudioWrite(samples, this.intToFloatSample);
         }
         else if (this.flashElement !== null) {
             this.flashElement.write(samples.join(' '));
@@ -97,7 +97,7 @@ DynamicAudio.prototype = {
      * @param {Number[]} samples
      * @param {Function} converter - optional samples conversion function
      */
-    output: function(samples, converter) {
+    webAudioWrite: function(samples, converter) {
         // Create output buffer (planar buffer format)
         var buffer = this.audioContext.createBuffer(2, samples.length, this.audioContext.sampleRate);
         var channelLeft = buffer.getChannelData(0);
