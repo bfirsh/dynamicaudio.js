@@ -36,6 +36,7 @@ DynamicAudio.prototype = {
         } catch(e) {
             // HTML5 Web Audio API not available
             // Fall back to creating flash player
+            console.log('Couldn\'t create AudioContext:' + e +', falling back to flash player');
             self.flashWrapper = document.createElement('div');
             self.flashWrapper.id = 'dynamicaudio-flashwrapper-'+self.id;
             // Credit to SoundManager2 for this:
