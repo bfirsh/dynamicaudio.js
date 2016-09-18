@@ -1,9 +1,7 @@
 dynamicaudio.js
 ===============
 
-An interface for writing audio with Firefox's new 
-[audio data API](https://wiki.mozilla.org/Audio_Data_API) with a Flash fallback 
-for older browsers.
+An interface for the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) with a Flash shim for older browsers.
 
 Built packages can be downloaded from 
 [GitHub](https://github.com/bfirsh/dynamicaudio.js/archives/master).
