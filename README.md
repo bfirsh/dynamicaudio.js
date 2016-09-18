@@ -3,8 +3,7 @@ dynamicaudio.js
 
 An interface for the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) with a Flash shim for older browsers.
 
-Built packages can be downloaded from 
-[GitHub](https://github.com/bfirsh/dynamicaudio.js/archives/master).
+Download it from [the releases page](https://github.com/bfirsh/dynamicaudio.js/releases).
 
 For a basic example, see ``demo.html``.
 
