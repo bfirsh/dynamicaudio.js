@@ -1,3 +1,6 @@
+var dynamicaudioSwf = require("url-loader!./dynamicaudio.swf");
+var swfobject = require("./lib/swfobject");
+
 window.AudioContext = window.AudioContext || window.webkitAudioContext; // prefixed naming used in Safary 8-9
 
 function DynamicAudio(args) {
@@ -17,7 +20,7 @@ DynamicAudio.nextId = 1;
 DynamicAudio.prototype = {
     nextId: null,
     swf: 'dynamicaudio.swf',
-    
+
     audioContext: null,
     flashWrapper: null,
     flashElement: null,
@@ -25,7 +28,7 @@ DynamicAudio.prototype = {
     init: function(opts) {
         var self = this;
         self.id = DynamicAudio.nextId++;
-        
+
         if (opts && typeof opts['swf'] !== 'undefined') {
             self.swf = opts['swf'];
         }
@@ -145,3 +148,5 @@ DynamicAudio.prototype = {
         return Math.floor(value * 32768); // from -1..1 to -32767..32768 range
     }
 };
+
+exports.DynamicAudio = DynamicAudio;

@@ -1,0 +1,25 @@
+{
+  "name": "dynamicaudio",
+  "version": "1.0.0",
+  "description": "An interface for the Web Audio API with a Flash shim for older browsers",
+  "main": "dist/dynamicaudio.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfirsh/dynamicaudio.js.git"
+  },
+  "author": "Ben Firshman",
+  "license": "Apache 2",
+  "bugs": {
+    "url": "https://github.com/bfirsh/dynamicaudio.js/issues"
+  },
+  "homepage": "https://github.com/bfirsh/dynamicaudio.js#readme",
+  "devDependencies": {
+    "url-loader": "^0.5.8",
+    "webpack": "^2.4.1"
+  }
+}

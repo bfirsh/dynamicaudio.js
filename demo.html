@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>dynamicaudio demo</title>
-    <script type="text/javascript" src="dynamicaudio-src.js"></script>
+  <title>dynamicaudio demo</title>
 </head>
 
 <body>
-    <input type="text" size="4" id="freq" value="440"><label for="hz">Hz</label>
-    <button onclick="generateWaveform()">set</button>
-    <button onclick="start()">play</button>
-    <button onclick="stop()">stop</button>
-    
-    <script type="text/javascript" charset="utf-8">
-        
-        var sampledata = [];
-        var freq = 440;
-        var interval = null;
-        var dynamicaudio = new DynamicAudio({'swf': 'dynamicaudio.swf'});
-        
-        function start() {
-            interval = setInterval(function() {
-                var n = Math.ceil(freq / 100) * 2;
-                for (var i=0; i < n; i++) {
-                    dynamicaudio.write(sampledata);
-                }
-            }, 10);
-        }
+  <input type="text" size="4" id="freq" value="440" onchange="setFreq()"><label for="hz">Hz</label>
+  <button onclick="start()">play</button>
+  <button onclick="stop()">stop</button>
 
-        function stop() {
-            if (interval != null) {
-                clearInterval(interval);
-                interval = null;
-            }
-        }
+  <script type="text/javascript" src="dist/dynamicaudio.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    var sampledata = [];
+    var output = new dynamicaudio.DynamicAudio();
+    var interval = null;
 
-        (function generateWaveform() {
-            freq = parseFloat(document.getElementById("freq").value);
-            // we're playing at 44.1kHz, so figure out how many samples
-            // will give us one full period
-            var samples = 44100 / freq;
-            sampledata = Array(Math.round(samples));
-            for (var i=0; i < sampledata.length; i++) {
-                sampledata[i] = Math.sin(2*Math.PI * (i / sampledata.length));
-            }
-        })();
-        
-    </script>
+    var sampleRate = 44100;
+    var currentPhase = 0.0;
+    var bufferSize = 44100;
+    var freq = null;
+    var phaseIncrement = null;
+
+    function setFreq() {
+      freq = parseFloat(document.getElementById("freq").value);
+      phaseIncrement = 2 * Math.PI * freq / sampleRate;
+    }
+    setFreq();
+
+    function generateSamples(n) {
+      var samples = new Array(n * 2);
+      for (var i = 0; i < n; i++) {
+        var sample = Math.sin(currentPhase)
+        samples[i * 2] = sample;
+        samples[i * 2 + 1] = sample;
+        currentPhase += phaseIncrement;
+      }
+      return samples;
+    };
+
+    function start() {
+      stop();
+
+      interval = setInterval(function() {
+        output.write(generateSamples(bufferSize));
+      }, 1000 / (sampleRate / bufferSize));
+    }
+
+    function stop() {
+      if (interval != null) {
+        clearInterval(interval);
+        interval = null;
+      }
+    }
+  </script>
 </body>
